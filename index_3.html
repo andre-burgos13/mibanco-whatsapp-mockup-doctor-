@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mibanco por WhatsApp — Mockup de pantallas</title>
+<style>
+  :root {
+    --wa-bg: #efeae2;
+    --wa-header: #075e54;
+    --wa-header-dark: #054c44;
+    --wa-green-bubble: #d9fdd3;
+    --wa-white-bubble: #ffffff;
+    --wa-text: #111b21;
+    --wa-text-secondary: #667781;
+    --wa-accent: #00a884;
+    --wa-blue-check: #53bdeb;
+    --panel-bg: #f0f2f5;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--panel-bg);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 32px 16px;
+  }
+
+  h1 {
+    font-size: 18px;
+    color: var(--wa-text);
+    margin-bottom: 4px;
+  }
+
+  .subtitle {
+    color: var(--wa-text-secondary);
+    font-size: 13px;
+    margin-bottom: 24px;
+    text-align: center;
+    max-width: 420px;
+  }
+
+  /* Selector de escenas */
+  .scene-selector {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 380px;
+  }
+
+  .scene-btn {
+    border: 1px solid #d1d7db;
+    background: white;
+    color: var(--wa-text);
+    font-size: 12px;
+    padding: 6px 12px;
+    border-radius: 16px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+
+  .scene-btn:hover { background: #f5f5f5; }
+
+  .scene-btn.active {
+    background: var(--wa-accent);
+    border-color: var(--wa-accent);
+    color: white;
+  }
+
+  /* Marco del teléfono */
+  .phone {
+    width: 375px;
+    height: 720px;
+    background: black;
+    border-radius: 40px;
+    padding: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+  }
+
+  .screen {
+    width: 100%;
+    height: 100%;
+    background: var(--wa-bg);
+    border-radius: 28px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* Barra de estado Android (estilo Figma) */
+  .status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 24px;
+    height: 20px;
+    background: white;
+    flex-shrink: 0;
+  }
+  .status-bar .status-time {
+    font-family: 'Roboto', -apple-system, sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    color: #4C4C4C;
+    letter-spacing: 0.01em;
+  }
+  .status-bar .status-icons { display: flex; align-items: center; gap: 6px; color: #4C4C4C; font-size: 13px; }
+
+  /* Header estilo Figma: blanco, texto e íconos gris oscuro */
+  .chat-header {
+    background: white;
+    color: #4C4C4C;
+    padding: 10px 22px 10px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 4px rgba(0,0,0,0.10);
+    position: relative;
+    z-index: 1;
+  }
+
+  .chat-header .back {
+    font-size: 20px;
+    width: 17px;
+    color: #4C4C4C;
+    font-weight: 700;
+  }
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #009330;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 13px;
+    flex-shrink: 0;
+  }
+
+  .header-info { flex: 1; min-width: 0; }
+  .header-name { font-family: 'Roboto', -apple-system, sans-serif; font-size: 18px; font-weight: 600; color: #4C4C4C; }
+  .header-status { font-size: 11px; color: #9C9CA3; }
+  .header-icons { display: flex; gap: 20px; font-size: 16px; color: #4C4C4C; }
+
+  /* Área de mensajes */
+  .messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(0,0,0,0.02) 0, transparent 50%),
+      radial-gradient(circle at 80% 70%, rgba(0,0,0,0.02) 0, transparent 50%);
+  }
+
+  .day-divider {
+    align-self: center;
+    background: white;
+    color: #333;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 5px 14px;
+    border-radius: 8px;
+    margin: 8px 0;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+  }
+
+  .bubble-row {
+    display: flex;
+    margin: 3px 0;
+  }
+
+  .bubble-row.in { justify-content: flex-start; }
+  .bubble-row.out { justify-content: flex-end; }
+
+  .bubble {
+    max-width: 82%;
+    padding: 8px 10px 9px 11px;
+    border-radius: 10px;
+    font-size: 15.5px;
+    line-height: 1.4;
+    position: relative;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+    white-space: pre-line;
+  }
+
+  .bubble.in { background: var(--wa-white-bubble); border-top-left-radius: 0; }
+  .bubble.out { background: var(--wa-green-bubble); border-top-right-radius: 0; }
+
+  .bubble .meta {
+    display: block;
+    text-align: right;
+    font-size: 10.5px;
+    color: var(--wa-text-secondary);
+    margin-top: 2px;
+    margin-left: 8px;
+    float: right;
+  }
+
+  .bubble .check { color: var(--wa-blue-check); margin-left: 2px; }
+
+  /* Botones de menú interactivo (list message) */
+  .menu-bubble {
+    background: var(--wa-white-bubble);
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    max-width: 82%;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+    overflow: hidden;
+  }
+
+  .menu-body { padding: 8px 9px 6px 9px; font-size: 14px; white-space: pre-line; }
+  .menu-body .meta { display: block; text-align: right; font-size: 10.5px; color: var(--wa-text-secondary); margin-top: 4px; }
+
+  .menu-option {
+    border-top: 1px solid #ecebe9;
+    padding: 11px 12px;
+    color: var(--wa-accent);
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    cursor: default;
+  }
+
+  /* Botones de respuesta rápida */
+  .quick-replies {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    align-self: flex-start;
+    max-width: 82%;
+    margin: 4px 0 8px 0;
+  }
+
+  .quick-reply-btn {
+    background: white;
+    border: 1px solid #d1d7db;
+    color: var(--wa-accent);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  /* Documento adjunto simulado */
+  .doc-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: #f5f2ec;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 4px;
+  }
+
+  .doc-icon {
+    width: 34px;
+    height: 34px;
+    background: #d1483f;
+    color: white;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .doc-name { font-size: 12.5px; font-weight: 600; }
+  .doc-size { font-size: 11px; color: var(--wa-text-secondary); }
+
+  /* Bloque de cita (ej. aviso de Términos y Condiciones) */
+  .quote-block {
+    border-left: 3px solid #c9c9c9;
+    padding-left: 8px;
+    margin: 6px 0;
+    color: var(--wa-text-secondary);
+    font-size: 13px;
+  }
+  .quote-block a { color: var(--wa-text-secondary); text-decoration: underline; }
+
+  /* Tarjeta con CTA: título en negrita, texto, subtexto gris, línea, link centrado */
+  .card-bubble .card-title { font-weight: 700; font-size: 15px; margin-bottom: 6px; }
+  .card-bubble .card-muted { color: var(--wa-text-secondary); font-size: 13px; }
+  .card-bubble .card-divider { border-top: 1px solid #ecebe9; margin-top: 10px; }
+  .card-bubble .card-cta {
+    display: block;
+    text-align: center;
+    color: var(--wa-accent);
+    font-weight: 600;
+    font-size: 15px;
+    padding-top: 10px;
+  }
+
+  /* Carrusel horizontal de tarjetas con imagen */
+  .carousel-wrap {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 4px 0 6px 0;
+  }
+  .carousel-card {
+    flex: 0 0 200px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+    overflow: hidden;
+  }
+  .carousel-card .carousel-img {
+    height: 110px;
+    background-size: cover;
+    background-position: center;
+  }
+  .carousel-card .carousel-text {
+    padding: 9px 10px 5px 10px;
+    font-size: 13px;
+    line-height: 1.4;
+  }
+  .carousel-card .carousel-cta {
+    border-top: 1px solid #ecebe9;
+    padding: 9px 10px;
+    color: var(--wa-accent);
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+  }
+  .carousel-hint {
+    text-align: center;
+    font-size: 10.5px;
+    color: var(--wa-text-secondary);
+    margin: -2px 0 6px 0;
+  }
+
+  /* Tarjeta de confirmación cuando el cliente presiona un botón */
+  .button-reply {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+  }
+  .button-reply .reply-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: var(--wa-accent);
+    flex-shrink: 0;
+  }
+  .button-reply .reply-label { font-weight: 700; font-size: 14.5px; }
+  .button-reply .reply-status { font-size: 12.5px; color: #4a5d57; }
+  .button-reply-cta {
+    border-top: 1px solid rgba(0,0,0,0.08);
+    padding: 9px 12px;
+    color: #00694f;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* Carrusel de planes: título, descripción, precio, badge destacado, botón */
+  .plan-carousel-wrap {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding: 4px 0 6px 0;
+  }
+  .plan-card {
+    flex: 0 0 175px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 1px 0.5px rgba(0,0,0,0.13);
+    overflow: hidden;
+  }
+  .plan-card.highlighted {
+    border: 1.5px solid var(--wa-accent);
+  }
+  .plan-card .plan-badge {
+    background: var(--wa-accent);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    text-align: center;
+    padding: 3px;
+  }
+  .plan-card .plan-body { padding: 10px 11px 8px 11px; }
+  .plan-card .plan-title { font-weight: 700; font-size: 14px; }
+  .plan-card .plan-desc { font-size: 12px; color: #4a5d57; margin-top: 4px; line-height: 1.35; }
+  .plan-card .plan-price { font-size: 16px; font-weight: 700; color: var(--wa-accent); margin-top: 7px; }
+  .plan-card .plan-price .plan-price-note { font-size: 10.5px; font-weight: 400; color: var(--wa-text-secondary); }
+  .plan-card .plan-cta {
+    border-top: 1px solid #ecebe9;
+    padding: 8px 9px;
+    color: var(--wa-accent);
+    font-size: 12.5px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* Barra de entrada inferior */
+  .input-bar {
+    background: #f0f2f5;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  .input-pill {
+    flex: 1;
+    background: white;
+    border-radius: 20px;
+    padding: 9px 14px;
+    font-size: 13.5px;
+    color: var(--wa-text-secondary);
+  }
+
+  .mic-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--wa-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .scene-caption {
+    margin-top: 16px;
+    font-size: 12.5px;
+    color: var(--wa-text-secondary);
+    text-align: center;
+    max-width: 320px;
+  }
+
+  code {
+    background: #e8e8e8;
+    padding: 1px 5px;
+    border-radius: 4px;
+    font-size: 11.5px;
+  }
+
+  /* WhatsApp Flow: pantalla modal (no es una conversación de chat) */
+  .flow-screen {
+    background: white;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 15px;
+  }
+  .flow-handle-wrap { display: flex; justify-content: center; padding-top: 10px; flex-shrink: 0; }
+  .flow-handle { width: 36px; height: 4px; background: #d1d1d1; border-radius: 2px; }
+  .flow-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px 10px 16px;
+    flex-shrink: 0;
+  }
+  .flow-header .flow-close { font-size: 20px; color: #333; }
+  .flow-header .flow-title { font-weight: 700; font-size: 17px; color: #111; }
+  .flow-header .flow-menu { font-size: 18px; color: #333; }
+  .flow-progress-wrap { padding: 0 16px; flex-shrink: 0; }
+  .flow-progress-track { height: 4px; background: #e0e0e0; border-radius: 2px; overflow: hidden; }
+  .flow-progress-fill { height: 100%; background: var(--wa-accent); }
+  .flow-body { padding: 16px; overflow-y: auto; flex: 1; }
+  .flow-banner {
+    background: #eef7fb;
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  .flow-banner .flow-banner-icon { color: var(--wa-accent); font-size: 16px; }
+  .flow-banner .flow-banner-text { font-size: 13.5px; color: #3a4a45; line-height: 1.4; }
+  .flow-label { font-size: 13px; color: var(--wa-text-secondary); font-weight: 600; }
+  .flow-value-large { font-size: 19px; font-weight: 700; color: #111; margin-top: 2px; }
+  .flow-link-center { text-align: center; color: var(--wa-accent); font-size: 14px; font-weight: 600; margin-top: 14px; }
+  .flow-field {
+    border: 1px solid #d1d7db;
+    border-radius: 10px;
+    padding: 10px 12px;
+    margin-top: 16px;
+    position: relative;
+  }
+  .flow-field .flow-field-label {
+    position: absolute;
+    top: -9px;
+    left: 10px;
+    background: white;
+    padding: 0 4px;
+    font-size: 11.5px;
+    color: var(--wa-text-secondary);
+  }
+  .flow-field .flow-field-row { display: flex; justify-content: space-between; align-items: center; }
+  .flow-field .flow-field-value { font-size: 17px; color: #111; }
+  .flow-field .flow-field-arrow { color: #999; }
+  .flow-field-hint { font-size: 11.5px; color: var(--wa-text-secondary); margin-top: 5px; }
+  .flow-section-title { font-size: 14px; font-weight: 700; color: #333; margin-top: 18px; }
+  .flow-footer { padding: 6px 16px 16px 16px; flex-shrink: 0; }
+  .flow-confirm-btn {
+    background: #0aa66f;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    border-radius: 30px;
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .flow-footer-note {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-top: 12px;
+    font-size: 12px;
+    color: var(--wa-text-secondary);
+  }
+  .flow-footer-note .flow-footer-dot { width: 16px; height: 16px; border-radius: 50%; background: var(--wa-accent); }
+  .flow-footer-note .flow-footer-link { color: var(--wa-accent); font-weight: 600; }
+
+  /* Comprobante de pago */
+  .receipt-card { max-width: 90%; }
+  .receipt-ribbon { background: #0aa66f; height: 34px; }
+  .receipt-body { padding: 20px 18px 16px 18px; text-align: center; }
+  .receipt-check {
+    width: 36px; height: 36px; border: 2px solid #0aa66f; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 10px auto; color: #0aa66f; font-size: 18px;
+  }
+  .receipt-title { font-weight: 700; font-size: 19px; color: #111; }
+  .receipt-label { font-size: 13px; color: var(--wa-text-secondary); margin-top: 16px; }
+  .receipt-amount { font-size: 28px; font-weight: 700; color: #111; margin-top: 2px; }
+  .receipt-date { font-size: 12.5px; color: var(--wa-text-secondary); margin-top: 4px; }
+  .receipt-brand { font-size: 13.5px; font-weight: 700; color: #333; margin-top: 4px; }
+  .receipt-divider { border-top: 1px dashed #ddd; margin: 0 18px; }
+  .receipt-details { padding: 16px 18px; font-size: 13.5px; }
+  .receipt-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+  .receipt-row:last-child { margin-bottom: 0; }
+  .receipt-row .receipt-key { color: var(--wa-text-secondary); }
+  .receipt-row .receipt-val { font-weight: 700; color: #111; }
+  .receipt-badge {
+    background: #ffcb2b; color: #5a4300; font-size: 11px; font-weight: 700;
+    padding: 3px 8px; border-radius: 5px;
+  }
+  .receipt-time { text-align: right; font-size: 11px; color: var(--wa-text-secondary); padding: 0 18px 12px 18px; }
+
+  /* Tarjeta QR */
+  .qr-card { max-width: 78%; }
+  .qr-header { padding: 16px 16px 4px 16px; text-align: center; }
+  .qr-header .qr-title { font-weight: 700; font-size: 14.5px; color: #111; }
+  .qr-header .qr-subtitle { font-size: 11.5px; color: var(--wa-text-secondary); margin-top: 2px; }
+  .qr-image-wrap { display: flex; justify-content: center; padding: 14px; }
+  .qr-cta { border-top: 1px solid #ecebe9; padding: 10px 12px; color: var(--wa-accent); font-size: 14px; font-weight: 600; text-align: center; }
+  .qr-time { text-align: right; font-size: 11px; color: var(--wa-text-secondary); padding: 0 12px 8px 12px; }
+
+  /* Tarjeta de bienvenida (estilo Figma): título negrita + texto + línea + link centrado con ícono */
+  .welcome-card .welcome-title { font-weight: 700; font-size: 17px; color: #111; margin-bottom: 8px; }
+  .welcome-card .welcome-text { font-size: 15px; line-height: 1.45; color: #222; }
+  .welcome-card .welcome-divider { border-top: 1px solid #ecebe9; margin-top: 12px; }
+  .welcome-card .welcome-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    color: var(--wa-accent);
+    font-weight: 600;
+    font-size: 15px;
+    padding-top: 12px;
+  }
+</style>
+</head>
+<body>
+
+  <h1>Mibanco por WhatsApp</h1>
+  <div class="subtitle">Mockup navegable del flujo de desembolso. Edita el arreglo <code>scenes</code> en el JS para cambiar los mensajes de cada pantalla.</div>
+
+  <div class="scene-selector" id="sceneSelector"></div>
+
+  <div class="phone">
+    <div class="screen" id="screen">
+    </div>
+  </div>
+
+  <div class="scene-caption" id="sceneCaption"></div>
+
+<script>
+  // ── DATA: cada "scene" representa una pantalla / paso del flujo ──
+  // Edita este arreglo para reflejar tus propias pantallas.
+  const scenes = [
+    {
+      id: "bienvenida",
+      label: "1. Doctor+",
+      caption: "Cliente solicita el producto de salud Doctor+ y el bot muestra las opciones disponibles en un carrusel.",
+      messages: [
+        { type: "day" , text: "Hoy" },
+        { type: "out", text: "Quiero contratar mi producto de salud de Doctor+", time: "12:00" },
+        { type: "quote",
+          title: "Te doy la bienvenida",
+          text: "✨ Soy Mibanco por WhatsApp, el banco que cabe en un chat. Al continuar estarás aceptando nuestros Términos y Condiciones",
+          linkText: "Ver más",
+          time: "12:00" },
+        { type: "in", text: "Estoy procesando tu solicitud para poder continuar con la mejor atención para ti", time: "12:00" },
+        { type: "in", text: "De acuerdo, te muestro los productos de Doctor+ que te puedo ofrecer", time: "12:00" },
+        { type: "carousel",
+          cards: [
+            {
+              image: "https://images.pexels.com/photos/7579831/pexels-photo-7579831.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+              text: "Puedes adquirir los productos de Doctor+ en más de 18 especialidades",
+              cta: "Contratar mi producto de Doctor+"
+            },
+            {
+              image: "https://images.pexels.com/photos/36729529/pexels-photo-36729529.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+              text: "Puedes adquirir los paquetes de salud que más se acomoden a tu negocio",
+              cta: "Adquirir mi paquete de Doctor+"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "especialidad",
+      label: "2. Especialidad",
+      caption: "El cliente presiona el botón del carrusel y elige la especialidad de Doctor+ que quiere contratar.",
+      messages: [
+        { type: "day", text: "Hoy" },
+        { type: "button-reply", label: "Contratar mi producto de Doctor+", time: "12:01" },
+        { type: "in", text: "¡Genial! Contamos con <b>18 especialidades</b> médicas para que cuides de ti y de tu familia, desde medicina general hasta especialidades como pediatría, ginecología y nutrición.\n\n¿Cuál te gustaría contratar hoy?", time: "12:01" },
+        { type: "out", text: "Medicina general", time: "12:01" },
+        { type: "card",
+          title: "🩺 Medicina General",
+          text: "En esta especialidad revisamos síntomas comunes, malestares generales, dolores, fiebre, resfríos y chequeos preventivos, orientándote sobre el mejor tratamiento a seguir.",
+          cta: "Adquirir producto",
+          time: "12:02" }
+      ]
+    },
+    {
+      id: "paquetes",
+      label: "3. Paquetes",
+      caption: "El cliente presiona el botón de paquete y elige entre plan familiar o empresarial.",
+      messages: [
+        { type: "day", text: "Hoy" },
+        { type: "button-reply", label: "Adquirir mi paquete de Doctor+", time: "12:03" },
+        { type: "in", text: "Tenemos los mejores paquetes de salud pensados para tu familia y tu negocio.\n\n¿Qué paquete te gustaría contratar?", time: "12:03" },
+        { type: "carousel",
+          cards: [
+            {
+              image: "https://images.pexels.com/photos/29857984/pexels-photo-29857984.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+              text: "Protege la salud de quienes más quieres con un plan pensado para todos en casa",
+              cta: "Conoce los planes familiares"
+            },
+            {
+              image: "https://images.pexels.com/photos/36729529/pexels-photo-36729529.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+              text: "Cuida el bienestar de tu equipo con un plan de salud pensado para tu negocio",
+              cta: "Conoce los planes para tu empresa"
+            }
+          ]
+        },
+        { type: "button-reply", label: "Conoce los planes familiares", time: "12:04" },
+        { type: "in", text: "Estos son nuestros planes familiares disponibles 👨‍👩‍👧", time: "12:04" },
+        { type: "plan-carousel",
+          plans: [
+            {
+              title: "Plan Familiar 1",
+              desc: "4 atenciones en medicina general",
+              price: "S/ 100",
+              priceNote: "/ total",
+              cta: "Adquirir producto"
+            },
+            {
+              title: "Plan Familiar 2",
+              desc: "8 atenciones + 1 especialidad",
+              price: "S/ 180",
+              priceNote: "/ total",
+              badge: "MÁS ELEGIDO",
+              cta: "Adquirir producto"
+            },
+            {
+              title: "Plan Familiar 3",
+              desc: "Atenciones ilimitadas + 3 especialidades",
+              price: "S/ 280",
+              priceNote: "/ total",
+              cta: "Adquirir producto"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "empresa",
+      label: "4. Empresa",
+      caption: "Mismo inicio que la pantalla 3, pero el cliente elige el paquete empresarial en vez del familiar.",
+      messages: [
+        { type: "day", text: "Hoy" },
+        { type: "button-reply", label: "Adquirir mi paquete de Doctor+", time: "12:03" },
+        { type: "in", text: "Tenemos los mejores paquetes de salud pensados para tu familia y tu negocio.\n\n¿Qué paquete te gustaría contratar?", time: "12:03" },
+        { type: "carousel",
+          cards: [
+            {
+              image: "https://images.pexels.com/photos/29857984/pexels-photo-29857984.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+              text: "Protege la salud de quienes más quieres con un plan pensado para todos en casa",
+              cta: "Conoce los planes familiares"
+            },
+            {
+              image: "https://images.pexels.com/photos/36729529/pexels-photo-36729529.jpeg?auto=compress&cs=tinysrgb&h=627&fit=crop&w=1200",
+              text: "Cuida el bienestar de tu equipo con un plan de salud pensado para tu negocio",
+              cta: "Conoce los planes para tu empresa"
+            }
+          ]
+        },
+        { type: "button-reply", label: "Conoce los planes para tu empresa", time: "12:05" },
+        { type: "in", text: "Estos son nuestros planes empresariales disponibles 🏢", time: "12:05" },
+        { type: "plan-carousel",
+          plans: [
+            {
+              title: "Plan Empresa 1",
+              desc: "4 especialidades para tu equipo",
+              price: "S/ 150",
+              priceNote: "/ total",
+              cta: "Adquirir producto"
+            },
+            {
+              title: "Plan Empresa 2",
+              desc: "8 especialidades + descuentos en farmacias",
+              price: "S/ 260",
+              priceNote: "/ total",
+              badge: "RECOMENDADO",
+              cta: "Adquirir producto"
+            },
+            {
+              title: "Plan Empresa 3",
+              desc: "Todas las especialidades + telemedicina 24/7",
+              price: "S/ 400",
+              priceNote: "/ total",
+              cta: "Adquirir producto"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: "solicitud-registro",
+      label: "5. Solicitud registro",
+      caption: "Continuación de la pantalla 2: el cliente presiona 'Adquirir producto' y el bot le pide registrarse por ser su primera vez.",
+      messages: [
+        { type: "day", text: "Hoy" },
+        { type: "card",
+          title: "🩺 Medicina General",
+          text: "En esta especialidad revisamos síntomas comunes, malestares generales, dolores, fiebre, resfríos y chequeos preventivos, orientándote sobre el mejor tratamiento a seguir.",
+          cta: "Adquirir producto",
+          time: "12:02" },
+        { type: "button-reply", label: "Adquirir producto", time: "12:02" },
+        { type: "in", text: "☝️ Es tu primera vez aquí, así que necesitamos confirmar que eres tú.\n\nTe pediré <b>registrarte por única vez</b> en este canal.", time: "12:03" },
+        { type: "menu",
+          text: "Te cuento cómo será:\n\n• Te pediré una foto de tu <b>DNI peruano</b> y una <b>selfie</b>.\n• Ingresarás tu <b>correo</b> y registrarás una <b>clave</b>.\n\n🔒 Es rápido y <b>seguro</b>. No se quedará tu información en el chat. ¿Empezamos?",
+          time: "12:03",
+          options: ["↩ Sí, empecemos", "↩ Otra consulta"] }
+      ]
+    },
+    {
+      id: "registro",
+      label: "6. Registro",
+      caption: "Tras registrarse por primera vez, el bot confirma y lo dirige de vuelta a contratar su producto de Doctor+.",
+      messages: [
+        { type: "day", text: "Hoy" },
+        { type: "in", text: "Aguarda un instante mientras validamos tu información y realizamos tu comparación facial ⏳", time: "12:00" },
+        { type: "in", text: "¡Casi listo! 👏 Completa el formulario que llegará a continuación para terminar tu registro en Mibanco por WhatsApp.", time: "12:00" },
+        { type: "card",
+          title: "Paso 2 de 2: Correo y contraseña",
+          text: "Registra tu contraseña para usar por WhatsApp.",
+          muted: "Presiona el botón para continuar 👇",
+          cta: "Continuar",
+          time: "12:00" },
+        { type: "button-reply", label: "Continuar", time: "12:00" },
+        { type: "in", text: "✅ ¡Listo! Ya te registraste en Mibanco por WhatsApp. 😊", time: "12:00" },
+        { type: "card",
+          text: "➡️ Sigamos con la contratación de tu producto\n\nYa puedes finalizar la contratación de tu producto de Doctor+.",
+          cta: "Contratar producto",
+          time: "12:00" }
+      ]
+    },
+    {
+      id: "flow-contratacion",
+      label: "7. Flow contratación",
+      caption: "Al presionar 'Contratar producto', se abre un WhatsApp Flow (modal) para confirmar la contratación.",
+      flow: {
+        title: "Contratar producto",
+        progress: 55,
+        banner: "Esta operación es gratis, segura y respaldada por Mibanco.",
+        toLabel: "Enviar a:",
+        toValue: "Doctor+ SAC",
+        linkText: "Cambia de contacto",
+        fields: [
+          { label: "Monto (S/)", value: "10", hint: "Escribe un monto entre S/1 y S/100." },
+          { label: "Destino", value: "Yape", hint: "Elige una de las billeteras disponibles.", sectionTitleAfter: "Desde tu cuenta de ahorros:" },
+          { label: "Cuenta de origen (S/)", value: "Ahorro Negocios Soles", hint: "Saldo de la cuenta: S/300." }
+        ],
+        confirmText: "Confirmar"
+      }
+    },
+    {
+      id: "desembolso",
+      label: "8. Desembolso",
+      caption: "Confirmación final: el dinero se envía directo a Yape/cuenta.",
+      messages: [
+        { type: "day", text: "Hoy" },
+        { type: "out", text: "✅ Aceptar condiciones", time: "09:21" },
+        { type: "in", text: "Última confirmación: firma tu contrato digital aquí 👇", time: "09:21" },
+        { type: "doc", name: "Contrato_prestamo.pdf", size: "340 KB", time: "09:21" },
+        { type: "out", text: "Firmado ✍️", time: "09:23" },
+        { type: "in", text: "¡Listo, André! 🎉\nS/ 3,000 fueron desembolsados a tu cuenta Yape.\n\nTu primera cuota vence el 11/09/2026.", time: "09:24" }
+      ]
+    },
+    {
+      id: "comprobante-qr",
+      label: "9. Comprobante y QR",
+      caption: "Tras confirmar el pago en el Flow, el bot envía el comprobante y el QR para la atención de Medicina General.",
+      messages: [
+        { type: "day", text: "Hoy" },
+        { type: "button-reply", label: "Confirmar", time: "12:00" },
+        { type: "in", text: "✅ ¡Tu pago se realizó exitosamente! Aquí te envío el voucher para que lo compartas. 😊", time: "12:00" },
+        { type: "receipt",
+          title: "¡Pago exitoso!",
+          amountLabel: "Monto transferido",
+          amount: "S/ 10.00",
+          date: "05 Mar 2025 - 11:11 a.m.",
+          brand: "Mibanco por WhatsApp",
+          rows: [
+            { key: "Enviado a", value: "Doctor+ SAC" },
+            { key: "Tipo de transferencia", value: "Pago a celular" },
+            { key: "Comisión Mibanco", value: "GRATIS", badge: true },
+            { key: "Número de operación", value: "1234566899009" }
+          ],
+          time: "12:00" },
+        { type: "in", text: "📲 Te envío tu QR para tu atención de <b>Medicina General</b>. Solo muéstralo el día de tu cita.", time: "12:00" },
+        { type: "qr",
+          title: "Tu código QR",
+          subtitle: "Medicina General · Doctor+",
+          cta: "Guardar QR",
+          time: "12:00" },
+        { type: "in", text: "¿Quieres que te muestre el saldo de tus cuentas?", time: "12:00" }
+      ]
+    }
+  ];
+
+  let currentScene = 0;
+
+  function renderSelector() {
+    const wrap = document.getElementById("sceneSelector");
+    wrap.innerHTML = "";
+    scenes.forEach((s, i) => {
+      const btn = document.createElement("button");
+      btn.className = "scene-btn" + (i === currentScene ? " active" : "");
+      btn.textContent = s.label;
+      btn.onclick = () => { currentScene = i; render(); };
+      wrap.appendChild(btn);
+    });
+  }
+
+  function bubbleHTML(msg) {
+    if (msg.type === "day") {
+      return `<div class="day-divider">${msg.text}</div>`;
+    }
+
+    if (msg.type === "menu") {
+      const opts = msg.options.map(o => `<div class="menu-option">${o}</div>`).join("");
+      return `
+        <div class="bubble-row in">
+          <div class="menu-bubble">
+            <div class="menu-body">${msg.text}<span class="meta">${msg.time}</span></div>
+            ${opts}
+          </div>
+        </div>`;
+    }
+
+    if (msg.type === "quick") {
+      const opts = msg.options.map(o => `<div class="quick-reply-btn">${o}</div>`).join("");
+      return `<div class="quick-replies">${opts}</div>`;
+    }
+
+    if (msg.type === "plan-carousel") {
+      const cards = msg.plans.map(p => {
+        const badge = p.badge ? `<div class="plan-badge">${p.badge}</div>` : "";
+        const cls = p.badge ? "plan-card highlighted" : "plan-card";
+        return `
+          <div class="${cls}">
+            ${badge}
+            <div class="plan-body">
+              <div class="plan-title">${p.title}</div>
+              <div class="plan-desc">${p.desc}</div>
+              <div class="plan-price">${p.price} <span class="plan-price-note">${p.priceNote || ""}</span></div>
+            </div>
+            <div class="plan-cta">${p.cta}</div>
+          </div>`;
+      }).join("");
+      return `<div class="plan-carousel-wrap">${cards}</div><div class="carousel-hint">← desliza para comparar →</div>`;
+    }
+
+    if (msg.type === "carousel") {
+      const cards = msg.cards.map(c => `
+        <div class="carousel-card">
+          <div class="carousel-img" style="background-image:url('${c.image}');"></div>
+          <div class="carousel-text">${c.text}</div>
+          <div class="carousel-cta">${c.cta}</div>
+        </div>`).join("");
+      return `<div class="carousel-wrap">${cards}</div><div class="carousel-hint">← desliza para ver más →</div>`;
+    }
+
+    if (msg.type === "button-reply") {
+      return `
+        <div class="bubble-row out">
+          <div class="bubble out" style="padding:0;">
+            <div class="button-reply">
+              <div class="reply-icon">📄</div>
+              <div>
+                <div class="reply-label">${msg.label}</div>
+                <div class="reply-status">Respuesta enviada <span>${msg.time}</span> <span class="check">✓✓</span></div>
+              </div>
+            </div>
+            <div class="button-reply-cta">Ver respuesta</div>
+          </div>
+        </div>`;
+    }
+
+    if (msg.type === "receipt") {
+      const rows = msg.rows.map(r => `
+        <div class="receipt-row">
+          <span class="receipt-key">${r.key}</span>
+          ${r.badge ? `<span class="receipt-badge">${r.value}</span>` : `<span class="receipt-val">${r.value}</span>`}
+        </div>`).join("");
+      return `
+        <div class="bubble-row in">
+          <div class="bubble in receipt-card" style="padding:0;">
+            <div class="receipt-ribbon"></div>
+            <div class="receipt-body">
+              <div class="receipt-check">✓</div>
+              <div class="receipt-title">${msg.title}</div>
+              <div class="receipt-label">${msg.amountLabel}</div>
+              <div class="receipt-amount">${msg.amount}</div>
+              <div class="receipt-date">${msg.date}</div>
+              <div class="receipt-brand">${msg.brand}</div>
+            </div>
+            <div class="receipt-divider"></div>
+            <div class="receipt-details">${rows}</div>
+            <div class="receipt-time">${msg.time}</div>
+          </div>
+        </div>`;
+    }
+
+    if (msg.type === "qr") {
+      return `
+        <div class="bubble-row in">
+          <div class="bubble in qr-card" style="padding:0;">
+            <div class="qr-header">
+              <div class="qr-title">${msg.title}</div>
+              <div class="qr-subtitle">${msg.subtitle}</div>
+            </div>
+            <div class="qr-image-wrap">
+              <svg width="150" height="150" viewBox="0 0 21 21" shape-rendering="crispEdges">
+                <rect width="21" height="21" fill="white"/>
+                <g fill="#111">
+                  <rect x="0" y="0" width="7" height="7"/><rect x="1" y="1" width="5" height="5" fill="white"/><rect x="2" y="2" width="3" height="3" fill="#111"/>
+                  <rect x="14" y="0" width="7" height="7"/><rect x="15" y="1" width="5" height="5" fill="white"/><rect x="16" y="2" width="3" height="3" fill="#111"/>
+                  <rect x="0" y="14" width="7" height="7"/><rect x="1" y="15" width="5" height="5" fill="white"/><rect x="2" y="16" width="3" height="3" fill="#111"/>
+                </g>
+                <g fill="#111">
+                  <rect x="9" y="1" width="1" height="1"/><rect x="11" y="2" width="1" height="1"/><rect x="9" y="3" width="1" height="1"/><rect x="12" y="4" width="1" height="1"/>
+                  <rect x="1" y="9" width="1" height="1"/><rect x="3" y="9" width="1" height="1"/><rect x="5" y="10" width="1" height="1"/><rect x="2" y="11" width="1" height="1"/>
+                  <rect x="9" y="9" width="1" height="1"/><rect x="10" y="10" width="1" height="1"/><rect x="12" y="9" width="1" height="1"/><rect x="9" y="11" width="1" height="1"/>
+                  <rect x="11" y="12" width="1" height="1"/><rect x="13" y="10" width="1" height="1"/><rect x="9" y="13" width="1" height="1"/><rect x="12" y="13" width="1" height="1"/>
+                  <rect x="15" y="9" width="1" height="1"/><rect x="17" y="9" width="1" height="1"/><rect x="19" y="10" width="1" height="1"/><rect x="16" y="11" width="1" height="1"/>
+                  <rect x="18" y="12" width="1" height="1"/><rect x="15" y="13" width="1" height="1"/><rect x="17" y="13" width="1" height="1"/><rect x="19" y="12" width="1" height="1"/>
+                  <rect x="9" y="15" width="1" height="1"/><rect x="11" y="16" width="1" height="1"/><rect x="9" y="17" width="1" height="1"/><rect x="12" y="18" width="1" height="1"/>
+                  <rect x="9" y="19" width="1" height="1"/><rect x="13" y="16" width="1" height="1"/><rect x="15" y="16" width="1" height="1"/><rect x="17" y="17" width="1" height="1"/>
+                  <rect x="19" y="16" width="1" height="1"/><rect x="16" y="19" width="1" height="1"/><rect x="18" y="18" width="1" height="1"/>
+                  <rect x="9" y="6" width="1" height="1"/><rect x="10" y="7" width="1" height="1"/><rect x="12" y="6" width="1" height="1"/><rect x="9" y="0" width="1" height="1"/>
+                </g>
+              </svg>
+            </div>
+            <div class="qr-cta">${msg.cta}</div>
+            <div class="qr-time">${msg.time}</div>
+          </div>
+        </div>`;
+    }
+
+    if (msg.type === "card") {
+      const title = msg.title ? `<div class="card-title">${msg.title}</div>` : "";
+      const muted = msg.muted ? `<div class="card-muted">${msg.muted}</div>` : "";
+      const cta = msg.cta ? `<div class="card-divider"></div><span class="card-cta">${msg.cta}</span>` : "";
+      return `
+        <div class="bubble-row in">
+          <div class="bubble in card-bubble">
+            ${title}
+            <div>${msg.text}</div>
+            ${muted}
+            ${cta}
+            <span class="meta">${msg.time}</span>
+          </div>
+        </div>`;
+    }
+
+    if (msg.type === "quote") {
+      return `
+        <div class="bubble-row in">
+          <div class="bubble in welcome-card" style="padding:12px 14px;">
+            <div class="welcome-title">${msg.title || "Te doy la bienvenida"}</div>
+            <div class="welcome-text">${msg.text}</div>
+            <div class="welcome-divider"></div>
+            <div class="welcome-link">↗ ${msg.linkText || "Ver más"}</div>
+          </div>
+        </div>`;
+    }
+
+    if (msg.type === "doc") {
+      return `
+        <div class="bubble-row out">
+          <div class="bubble out">
+            <div class="doc-card">
+              <div class="doc-icon">${msg.name.endsWith(".pdf") ? "PDF" : "IMG"}</div>
+              <div>
+                <div class="doc-name">${msg.name}</div>
+                <div class="doc-size">${msg.size}</div>
+              </div>
+            </div>
+            <span class="meta">${msg.time}<span class="check">✓✓</span></span>
+          </div>
+        </div>`;
+    }
+
+    const cls = msg.type; // "in" | "out"
+    const checks = cls === "out" ? `<span class="check">✓✓</span>` : "";
+    return `
+      <div class="bubble-row ${cls}">
+        <div class="bubble ${cls}">${msg.text}<span class="meta">${msg.time}${checks}</span></div>
+      </div>`;
+  }
+
+  function chatScreenHTML(scene) {
+    return `
+      <div class="status-bar">
+        <div class="status-time">12:00</div>
+        <div class="status-icons">📶 📡 🔋</div>
+      </div>
+      <div class="chat-header">
+        <div class="back">‹</div>
+        <div class="avatar">MB</div>
+        <div class="header-info">
+          <div class="header-name">Mibanco Chat <span style="color:#25d366;">✔</span></div>
+        </div>
+        <div class="header-icons">
+          <div>📹</div>
+          <div>📞</div>
+          <div>⋮</div>
+        </div>
+      </div>
+      <div class="messages">${scene.messages.map(bubbleHTML).join("")}</div>
+      <div class="input-bar">
+        <div class="input-pill">Mensaje</div>
+        <div class="mic-btn">🎤</div>
+      </div>`;
+  }
+
+  function flowScreenHTML(scene) {
+    const f = scene.flow;
+    return `
+      <div class="flow-screen">
+        <div class="flow-handle-wrap"><div class="flow-handle"></div></div>
+        <div class="flow-header">
+          <div class="flow-close">✕</div>
+          <div class="flow-title">${f.title}</div>
+          <div class="flow-menu">⋮</div>
+        </div>
+        <div class="flow-progress-wrap">
+          <div class="flow-progress-track"><div class="flow-progress-fill" style="width:${f.progress || 50}%;"></div></div>
+        </div>
+        <div class="flow-body">
+          <div class="flow-banner">
+            <div class="flow-banner-icon">🛡️</div>
+            <div class="flow-banner-text">${f.banner}</div>
+          </div>
+          <div class="flow-label">${f.toLabel}</div>
+          <div class="flow-value-large">${f.toValue}</div>
+          ${f.linkText ? `<div class="flow-link-center">${f.linkText}</div>` : ""}
+          ${(f.fields || []).map(field => `
+            <div class="flow-field">
+              <div class="flow-field-label">${field.label}</div>
+              <div class="flow-field-row">
+                <div class="flow-field-value">${field.value}</div>
+                <div class="flow-field-arrow">▶</div>
+              </div>
+            </div>
+            ${field.hint ? `<div class="flow-field-hint">${field.hint}</div>` : ""}
+            ${field.sectionTitleAfter ? `<div class="flow-section-title">${field.sectionTitleAfter}</div>` : ""}
+          `).join("")}
+        </div>
+        <div class="flow-footer">
+          <div class="flow-confirm-btn">${f.confirmText || "Confirmar"}</div>
+          <div class="flow-footer-note">
+            <div class="flow-footer-dot"></div> Administrada por Mibanco <span class="flow-footer-link">Más información</span>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  function render() {
+    renderSelector();
+    const scene = scenes[currentScene];
+    const screenEl = document.getElementById("screen");
+    screenEl.innerHTML = scene.flow ? flowScreenHTML(scene) : chatScreenHTML(scene);
+    document.getElementById("sceneCaption").textContent = scene.caption;
+  }
+
+  render();
+</script>
+
+</body>
+</html>
